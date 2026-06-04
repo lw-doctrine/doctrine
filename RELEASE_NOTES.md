@@ -1,7 +1,34 @@
 # Release Notes
 
 Status: Stable  
-Last Reviewed: 2026-03-04
+Last Reviewed: 2026-06-04
+
+## v0.3.0 - 2026-06-04
+
+### Added Files
+- export-policy.md
+- change-records/DCR-20260604-01-public-export-boundary.md
+
+### Updated Files
+- AI_CONTEXT.md
+- README.md
+- RELEASE_NOTES.md
+- doctrine-governance.md
+- identity.md
+- naming.md
+- project-standards.md
+- templates/AGENTS.md
+- tools/README.md
+- tools/doctrine-bootstrap.sh
+- tools/doctrine-bootstrap.ps1
+- usernames.md
+- .github/workflows/ci-doctrine.yml
+
+### Notes
+- Split public doctrine exports from maintainer-local identity overlays.
+- Rewrote public AI context and naming defaults to be contributor-neutral.
+- Excluded identity-specific doctrine from default bootstrap snapshots.
+- Added bootstrap and CI contamination guards for known non-exportable identity markers.
 
 ## v0.2.0 - 2026-03-04
 
