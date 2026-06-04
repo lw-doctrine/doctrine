@@ -1,11 +1,13 @@
 # Username Tier System
 
 Status: Stable  
-Last Reviewed: 2026-02-28
+Last Reviewed: 2026-06-04
 
 ## Scope
 
 Defines fallback rules for TinMan and TinkerSpace usernames/workspace slugs.
+
+Export scope: username ladder guidance is identity-specific and is not part of the default public doctrine snapshot. Keep it in the source doctrine repository or a private/local overlay unless a downstream repository explicitly needs it.
 
 ---
 

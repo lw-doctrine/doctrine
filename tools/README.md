@@ -1,6 +1,6 @@
 # Doctrine Bootstrap Tools
 
-Bootstrap scripts copy doctrine baseline files into another repository so AI agents and contributors follow the same engineering rules.
+Bootstrap scripts copy the public doctrine baseline into another repository so AI agents and contributors follow the same engineering rules.
 
 ## Scripts
 
@@ -37,3 +37,7 @@ tools\doctrine-bootstrap.cmd -Force C:\path\to\target-repo
 - `AI_CONTEXT.md`
 - `docs/doctrine/*.md` doctrine snapshot files
 - `docs/doctrine/templates/*.md` helper templates
+
+The copied set follows [`../export-policy.md`](../export-policy.md). Identity-specific files and maintainer-local overlays are intentionally excluded from the default public export.
+
+The scripts include a contamination guard and fail if exported files contain known non-exportable maintainer identity markers.
