@@ -24,6 +24,7 @@ jobs:
             "coding.md"
             "cpp-template-family.md"
             "doctrine-governance.md"
+            "export-policy.md"
             "identity.md"
             "naming.md"
             "project-standards.md"
@@ -39,7 +40,7 @@ jobs:
       - name: Validate doctrine links
         run: |
           set -euo pipefail
-          for f in README.md repo-management.md doctrine-governance.md project-standards.md coding.md naming.md identity.md AI_CONTEXT.md; do
+          for f in README.md repo-management.md doctrine-governance.md export-policy.md project-standards.md coding.md naming.md identity.md AI_CONTEXT.md; do
             [ -f "$f" ] || continue
             while IFS= read -r link; do
               target=$(echo "$link" | sed -E 's/^[^()]*\(([^)]+)\)$/\1/')
@@ -49,3 +50,17 @@ jobs:
               [ -e "$path" ] || { echo "Broken link in $f -> $target"; exit 1; }
             done < <(grep -oE '\[[^][]+\]\([^)]*\)' "$f" || true)
           done
+
+      - name: Validate public bootstrap export
+        run: |
+          set -euo pipefail
+          target="$(mktemp -d)"
+          ./tools/doctrine-bootstrap.sh "$target"
+          test -f "$target/docs/doctrine/export-policy.md"
+          test ! -f "$target/docs/doctrine/identity.md"
+          test ! -f "$target/docs/doctrine/usernames.md"
+          if grep -RInE 'Primary engineering identity|Real/legal identity|George Gil' \
+            "$target/AGENTS.md" "$target/AI_CONTEXT.md" "$target/docs/doctrine"; then
+            echo "Public bootstrap export contains non-exportable identity content"
+            exit 1
+          fi

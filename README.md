@@ -1,7 +1,7 @@
 # Doctrine
 
 Status: Stable  
-Last Reviewed: 2026-02-28
+Last Reviewed: 2026-06-04
 
 Centralized engineering doctrine defining identity, naming, coding philosophy, and project standards.
 
@@ -30,6 +30,7 @@ This repository acts as a persistent reference for engineering decisions and con
 
 - [Repo Governance Doctrine](repo-management.md)
 - [Doctrine Governance](doctrine-governance.md)
+- [Doctrine Export Policy](export-policy.md)
 - [Repo Visibility Note Template](templates/repo-visibility-note-template.md)
 - [Doctrine Change Record Template](templates/doctrine-change-record-template.md)
 
@@ -57,6 +58,7 @@ Use it as a reference:
 - Setting identity → check Identity/Usernames
 - Using AI → provide AI Context
 - Changing policy → check Doctrine Governance + DCR Template
+- Exporting doctrine to public repositories → check Doctrine Export Policy
 - Preparing repo visibility decision → use Visibility Note Template
 
 ---
@@ -75,7 +77,9 @@ Doctrine exists to:
 
 ## Bootstrap Any Repository
 
-Use the bootstrap scripts in [`tools/`](tools/) to copy doctrine files into any project repo.
+Use the bootstrap scripts in [`tools/`](tools/) to copy the public doctrine baseline into any project repo.
+
+The bootstrap baseline follows [`export-policy.md`](export-policy.md). Identity-specific files and maintainer-local overlays are not copied by default.
 
 ### macOS / Linux
 

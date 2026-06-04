@@ -1,11 +1,13 @@
 # Identity Structure
 
 Status: Draft  
-Last Reviewed: 2026-02-27
+Last Reviewed: 2026-06-04
 
 ## Scope
 
 Defines how identity layers are used across platforms, projects, accounts, environments, and digital infrastructure.
+
+Export scope: identity-specific guidance is not part of the default public doctrine snapshot. Keep this file in the source doctrine repository or a private/local overlay unless a downstream repository explicitly needs it.
 
 ## Overview
 

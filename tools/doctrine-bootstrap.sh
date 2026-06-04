@@ -5,7 +5,7 @@ usage() {
   cat <<'EOF'
 Usage: doctrine-bootstrap.sh [--force] <target-repo-path>
 
-Copies doctrine baseline files into a target repository.
+Copies the public doctrine baseline into a target repository.
 
 Options:
   -f, --force    Overwrite existing files
@@ -80,7 +80,7 @@ copy_file "${doctrine_root}/AI_CONTEXT.md" "AI_CONTEXT.md"
 for doctrine_file in \
   coding.md \
   doctrine-governance.md \
-  identity.md \
+  export-policy.md \
   naming.md \
   project-standards.md \
   repo-management.md; do
@@ -109,8 +109,48 @@ The canonical source remains the Doctrine repository.
 ## Refresh
 
 Re-run bootstrap when doctrine updates are needed.
+
+## Export Boundary
+
+This snapshot contains the public doctrine baseline only.
+Identity-specific files and maintainer-local overlays are intentionally not copied by default.
 EOF
   echo "write docs/doctrine/README.md"
 fi
+
+validate_public_export() {
+  local failed=0
+  local pattern
+  local path
+  local matches
+  local scan_paths=(
+    "${target_dir}/AGENTS.md"
+    "${target_dir}/AI_CONTEXT.md"
+    "${target_dir}/docs/doctrine"
+  )
+  local forbidden_patterns=(
+    "Primary engineering identity"
+    "Real/legal identity"
+    "George Gil"
+  )
+
+  for pattern in "${forbidden_patterns[@]}"; do
+    for path in "${scan_paths[@]}"; do
+      [[ -e "$path" ]] || continue
+      matches="$(grep -RInF "$pattern" "$path" || true)"
+      if [[ -n "$matches" ]]; then
+        echo "$matches" >&2
+        failed=1
+      fi
+    done
+  done
+
+  if [[ $failed -ne 0 ]]; then
+    echo "Public export contamination guard failed." >&2
+    exit 1
+  fi
+}
+
+validate_public_export
 
 echo "Bootstrap complete for: $target_dir"
