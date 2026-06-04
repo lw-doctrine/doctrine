@@ -1,6 +1,6 @@
 # DCR-20260604-01: Public Doctrine Export Boundary
 
-Status: Draft  
+Status: Approved
 Date: 2026-06-04  
 Owner: TinMan
 
@@ -38,7 +38,7 @@ Doctrine should define what contributors and AI agents need in project repositor
 
 ## Migration Plan
 
-- [ ] Update doctrine source files and bootstrap export policy.
+- [x] Update doctrine source files and bootstrap export policy.
 - [ ] Refresh public template repositories from the cleaned doctrine baseline.
 - [ ] Update template-family generation logic to respect the public export boundary.
 - [ ] Audit existing public repositories for non-exportable identity markers.
