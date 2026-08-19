@@ -3,18 +3,13 @@
 Status: Stable  
 Last Reviewed: 2026-06-04
 
-Centralized engineering doctrine defining identity, naming, coding philosophy, and project standards.
+Centralized engineering doctrine defining naming, coding philosophy, project standards, and repository governance.
 
 This repository acts as a persistent reference for engineering decisions and conventions.
 
 ---
 
 ## Navigation
-
-### Identity
-
-- [Identity Structure](identity.md)
-- [Username System](usernames.md)
 
 ### Naming
 
@@ -55,7 +50,6 @@ Use it as a reference:
 - Naming something → check Naming
 - Writing code → check Coding
 - Building template ecosystems → check C/C++ Template Family Doctrine
-- Setting identity → check Identity/Usernames
 - Using AI → provide AI Context
 - Changing policy → check Doctrine Governance + DCR Template
 - Exporting doctrine to public repositories → check Doctrine Export Policy
@@ -69,7 +63,7 @@ Doctrine exists to:
 
 - Reduce decision fatigue
 - Maintain consistency
-- Preserve engineering identity
+- Preserve consistent engineering standards
 - Standardize project structure
 - Improve long-term maintainability
 

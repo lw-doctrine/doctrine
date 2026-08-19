@@ -1,7 +1,27 @@
 # Release Notes
 
 Status: Stable  
-Last Reviewed: 2026-06-04
+Last Reviewed: 2026-08-19
+
+## Unreleased
+
+### Removed Files
+- identity.md
+- usernames.md
+
+### Added Files
+- change-records/DCR-20260819-01-private-maintainer-overlay.md
+
+### Updated Files
+- README.md
+- RELEASE_NOTES.md
+- doctrine-governance.md
+- export-policy.md
+- .github/workflows/ci-doctrine.yml
+
+### Notes
+- Moved maintainer identity and username preferences out of public Doctrine into a private overlay.
+- Tightened public-export validation to reject maintainer identity markers.
 
 ## v0.3.0 - 2026-06-04
 
@@ -66,7 +86,7 @@ Last Reviewed: 2026-06-04
 - repo-management.md
 
 ### Notes
-- Added root ownership mapping with `* @tinmanworks`.
+- Added a root ownership mapping.
 - Added draft GitHub release automation for semantic tags (`v*`) with generated release notes.
 - Canonicalized branch promotion flow as `develop -> master` for releases and tagging on `master`.
 - Added enforcement check requiring PRs to `master` to originate from `develop`.
@@ -109,4 +129,4 @@ Last Reviewed: 2026-06-04
 - First formal doctrine baseline release.
 - Repository governance policy, visibility policy, org placement policy, and commit signing policy are now stable.
 - Added MIT license (`LICENSE`).
-- Identity and naming doctrines remain draft for further iteration.
+- Naming doctrine remains draft for further iteration.

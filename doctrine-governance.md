@@ -1,7 +1,7 @@
 # Doctrine Governance
 
 Status: Draft  
-Last Reviewed: 2026-06-04
+Last Reviewed: 2026-08-19
 
 ## Purpose
 
@@ -21,9 +21,7 @@ When two doctrine rules conflict, resolve in this order:
 3. `coding.md`
 4. `export-policy.md`
 5. `naming.md`
-6. `identity.md`
-7. `usernames.md`
-8. `AI_CONTEXT.md`
+6. `AI_CONTEXT.md`
 
 Conflict handling:
 
