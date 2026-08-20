@@ -1,7 +1,7 @@
 # Doctrine Export Policy
 
 Status: Stable  
-Last Reviewed: 2026-06-04
+Last Reviewed: 2026-08-19
 
 ## Purpose
 
@@ -35,9 +35,9 @@ The default bootstrap tools may export:
 
 ## Non-Exported Identity Overlay
 
-Identity-specific files, account naming ladders, and maintainer-local preferences are source doctrine or private overlay material.
+Identity-specific files, account naming ladders, and maintainer-local preferences belong only in a private maintainer overlay.
 
-They must not be copied into public templates or generated repositories by default. If a downstream repository needs such material, document that decision locally and keep it out of reusable public template baselines unless it is contributor-neutral.
+They must not be committed to public doctrine, copied into public templates, or generated into downstream repositories by default. If a downstream repository needs such material, document that decision locally and keep it out of reusable public template baselines unless it is contributor-neutral.
 
 ## Contamination Guard
 

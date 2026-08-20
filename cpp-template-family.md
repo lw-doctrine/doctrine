@@ -72,4 +72,4 @@ Keep these in template-family repository docs (not doctrine policy):
 
 ## Reference Implementation
 
-- Template family repository: [tinmanworks/repo-template-cpp-family](https://github.com/tinmanworks/repo-template-cpp-family)
+- Template family repository: [tinmanworks-foundation/repo-template-cpp-family](https://github.com/tinmanworks-foundation/repo-template-cpp-family)

@@ -2,7 +2,7 @@
 
 Status: Approved
 Date: 2026-06-04  
-Owner: TinMan
+Owner: Maintainer
 
 Related files:
 - AI_CONTEXT.md
