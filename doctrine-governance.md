@@ -1,7 +1,7 @@
 # Doctrine Governance
 
 Status: Draft  
-Last Reviewed: 2026-08-19
+Last Reviewed: 2026-08-20
 
 ## Purpose
 
@@ -28,6 +28,11 @@ Conflict handling:
 - The stricter rule wins.
 - If strictness is equal, the file with the newer `Last Reviewed` date wins.
 - If still ambiguous, create a Doctrine Change Record before applying either rule.
+
+For agent guidance, apply explicit task and safety constraints first, then
+repository-local `AGENTS.md` and `PROJECT_CONTEXT.md`, then the public Doctrine
+snapshot. User-level tool configuration is private and may guide personal
+workflow, but must not introduce non-public material into committed output.
 
 ## Change Control Workflow
 

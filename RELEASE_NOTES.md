@@ -1,9 +1,14 @@
 # Release Notes
 
 Status: Stable  
-Last Reviewed: 2026-08-19
+Last Reviewed: 2026-08-20
 
 ## Unreleased
+
+### Added Files
+- change-records/DCR-20260820-01-tool-neutral-agent-context.md
+- templates/CLAUDE.md
+- templates/project-context-template.md
 
 ### Removed Files
 - identity.md
@@ -17,11 +22,18 @@ Last Reviewed: 2026-08-19
 - RELEASE_NOTES.md
 - doctrine-governance.md
 - export-policy.md
+- project-standards.md
+- templates/AGENTS.md
+- tools/README.md
+- tools/doctrine-bootstrap.ps1
+- tools/doctrine-bootstrap.sh
 - .github/workflows/ci-doctrine.yml
 
 ### Notes
 - Moved maintainer identity and username preferences out of public Doctrine into a private overlay.
 - Tightened public-export validation to reject maintainer identity markers.
+- Added a tool-neutral project-context workflow with portable agent templates
+  and safe Doctrine snapshot refresh support.
 
 ## v0.3.0 - 2026-06-04
 

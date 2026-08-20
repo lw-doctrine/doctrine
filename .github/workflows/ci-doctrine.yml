@@ -55,6 +55,10 @@ jobs:
           target="$(mktemp -d)"
           ./tools/doctrine-bootstrap.sh "$target"
           test -f "$target/docs/doctrine/export-policy.md"
+          test -f "$target/docs/doctrine/templates/project-context-template.md"
+          test -f "$target/docs/doctrine/templates/CLAUDE.md"
+          test ! -f "$target/PROJECT_CONTEXT.md"
+          test ! -f "$target/CLAUDE.md"
           test ! -f "$target/docs/doctrine/identity.md"
           test ! -f "$target/docs/doctrine/usernames.md"
           if grep -RInE 'Primary engineering identity|Real/legal identity|George Gil|TinMan|LooseWire|TinkerSpace' \
@@ -62,3 +66,24 @@ jobs:
             echo "Public bootstrap export contains non-exportable identity content"
             exit 1
           fi
+
+      - name: Validate safe baseline refresh
+        run: |
+          set -euo pipefail
+          target="$(mktemp -d)"
+          mkdir -p "$target/docs/doctrine"
+          printf 'local agents\n' > "$target/AGENTS.md"
+          printf 'local claude\n' > "$target/CLAUDE.md"
+          printf 'local AI context\n' > "$target/AI_CONTEXT.md"
+          printf 'local project context\n' > "$target/PROJECT_CONTEXT.md"
+          printf 'legacy identity\n' > "$target/docs/doctrine/identity.md"
+          printf 'legacy usernames\n' > "$target/docs/doctrine/usernames.md"
+          ./tools/doctrine-bootstrap.sh --refresh-baseline "$target"
+          test "$(cat "$target/AGENTS.md")" = 'local agents'
+          test "$(cat "$target/CLAUDE.md")" = 'local claude'
+          test "$(cat "$target/AI_CONTEXT.md")" = 'local AI context'
+          test "$(cat "$target/PROJECT_CONTEXT.md")" = 'local project context'
+          test ! -e "$target/docs/doctrine/identity.md"
+          test ! -e "$target/docs/doctrine/usernames.md"
+          test -f "$target/docs/doctrine/templates/project-context-template.md"
+          test -f "$target/docs/doctrine/templates/CLAUDE.md"

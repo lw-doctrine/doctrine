@@ -1,10 +1,15 @@
 param(
     [Parameter(Mandatory = $true, Position = 0)]
     [string]$TargetRepo,
-    [switch]$Force
+    [switch]$Force,
+    [switch]$RefreshBaseline
 )
 
 $ErrorActionPreference = "Stop"
+
+if ($Force.IsPresent -and $RefreshBaseline.IsPresent) {
+    throw "-Force and -RefreshBaseline cannot be used together."
+}
 
 if (-not (Test-Path -LiteralPath $TargetRepo -PathType Container)) {
     throw "Target directory does not exist: $TargetRepo"
@@ -39,8 +44,28 @@ function Copy-DoctrineFile {
     Write-Host "write $DestRel"
 }
 
-Copy-DoctrineFile -SourceRel "templates/AGENTS.md" -DestRel "AGENTS.md"
-Copy-DoctrineFile -SourceRel "AI_CONTEXT.md" -DestRel "AI_CONTEXT.md"
+function Copy-DoctrineSnapshotFile {
+    param(
+        [Parameter(Mandatory = $true)][string]$SourceRel,
+        [Parameter(Mandatory = $true)][string]$DestRel
+    )
+
+    $Source = Join-Path $DoctrineRoot $SourceRel
+    $Dest = Join-Path $TargetPath $DestRel
+
+    if (-not (Test-Path -LiteralPath $Source -PathType Leaf)) {
+        throw "Missing source file: $Source"
+    }
+
+    New-Item -ItemType Directory -Force -Path (Split-Path -Parent $Dest) | Out-Null
+    Copy-Item -LiteralPath $Source -Destination $Dest -Force
+    Write-Host "write $DestRel"
+}
+
+if (-not $RefreshBaseline.IsPresent) {
+    Copy-DoctrineFile -SourceRel "templates/AGENTS.md" -DestRel "AGENTS.md"
+    Copy-DoctrineFile -SourceRel "AI_CONTEXT.md" -DestRel "AI_CONTEXT.md"
+}
 
 $DoctrineFiles = @(
     "coding.md",
@@ -52,14 +77,30 @@ $DoctrineFiles = @(
 )
 
 foreach ($file in $DoctrineFiles) {
-    Copy-DoctrineFile -SourceRel $file -DestRel "docs/doctrine/$file"
+    if ($RefreshBaseline.IsPresent) {
+        Copy-DoctrineSnapshotFile -SourceRel $file -DestRel "docs/doctrine/$file"
+    } else {
+        Copy-DoctrineFile -SourceRel $file -DestRel "docs/doctrine/$file"
+    }
 }
 
-Copy-DoctrineFile -SourceRel "templates/repo-visibility-note-template.md" -DestRel "docs/doctrine/templates/repo-visibility-note-template.md"
-Copy-DoctrineFile -SourceRel "templates/doctrine-change-record-template.md" -DestRel "docs/doctrine/templates/doctrine-change-record-template.md"
+$TemplateFiles = @(
+    "repo-visibility-note-template.md",
+    "doctrine-change-record-template.md",
+    "project-context-template.md",
+    "CLAUDE.md"
+)
+
+foreach ($file in $TemplateFiles) {
+    if ($RefreshBaseline.IsPresent) {
+        Copy-DoctrineSnapshotFile -SourceRel "templates/$file" -DestRel "docs/doctrine/templates/$file"
+    } else {
+        Copy-DoctrineFile -SourceRel "templates/$file" -DestRel "docs/doctrine/templates/$file"
+    }
+}
 
 $DoctrineIndex = Join-Path $TargetPath "docs/doctrine/README.md"
-if ((Test-Path -LiteralPath $DoctrineIndex) -and -not $Force.IsPresent) {
+if ((Test-Path -LiteralPath $DoctrineIndex) -and -not $Force.IsPresent -and -not $RefreshBaseline.IsPresent) {
     Write-Host "skip  docs/doctrine/README.md (already exists)"
 } else {
     New-Item -ItemType Directory -Force -Path (Split-Path -Parent $DoctrineIndex) | Out-Null
@@ -74,7 +115,9 @@ The canonical source remains the Doctrine repository.
 
 ## Refresh
 
-Re-run bootstrap when doctrine updates are needed.
+Run bootstrap again to add missing baseline files. Use `-RefreshBaseline` to
+refresh only this Doctrine-owned snapshot without replacing local agent or
+project-context files.
 
 ## Export Boundary
 
@@ -82,6 +125,16 @@ This snapshot contains the public doctrine baseline only.
 Identity-specific files and maintainer-local overlays are intentionally not copied by default.
 "@ | Set-Content -LiteralPath $DoctrineIndex
     Write-Host "write docs/doctrine/README.md"
+}
+
+if ($RefreshBaseline.IsPresent) {
+    foreach ($retiredFile in @("identity.md", "usernames.md")) {
+        $retiredPath = Join-Path $TargetPath "docs/doctrine/$retiredFile"
+        if (Test-Path -LiteralPath $retiredPath -PathType Leaf) {
+            Remove-Item -LiteralPath $retiredPath -Force
+            Write-Host "remove docs/doctrine/$retiredFile"
+        }
+    }
 }
 
 function Assert-PublicExportClean {

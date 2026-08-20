@@ -5,6 +5,7 @@ This repository follows project doctrine.
 ## Agent Operating Rules
 
 1. Read repository guidance first:
+   - `PROJECT_CONTEXT.md` (if present)
    - `AI_CONTEXT.md`
    - `REPO_POLICY.md`
    - `docs/overview.md`
@@ -27,3 +28,9 @@ This repository follows project doctrine.
    - Do not push directly to protected branches (`master`, `develop`); use PR flow even when operating with admin credentials or AI automation
    - Ensure lint/tests/build pass for touched areas
 5. If local repo policy conflicts with doctrine snapshot, follow local repo files and call out the conflict explicitly.
+
+## Project Context
+
+`PROJECT_CONTEXT.md` is the durable project re-entry point. Create or update it
+only from a real project brief, repository evidence, or durable decisions made
+during the work. Do not invent project facts to fill a template.
