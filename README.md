@@ -1,7 +1,7 @@
 # Doctrine
 
 Status: Stable  
-Last Reviewed: 2026-06-04
+Last Reviewed: 2026-08-20
 
 Centralized engineering doctrine defining naming, coding philosophy, project standards, and repository governance.
 
@@ -32,6 +32,8 @@ This repository acts as a persistent reference for engineering decisions and con
 ### AI Usage
 
 - [AI Context](AI_CONTEXT.md)
+- [Project Context Template](templates/project-context-template.md)
+- [Claude Code Adapter Template](templates/CLAUDE.md)
 
 ### Meta
 
@@ -50,7 +52,7 @@ Use it as a reference:
 - Naming something → check Naming
 - Writing code → check Coding
 - Building template ecosystems → check C/C++ Template Family Doctrine
-- Using AI → provide AI Context
+- Using AI → configure personal preferences locally, then use `AGENTS.md` and `PROJECT_CONTEXT.md` in the repository
 - Changing policy → check Doctrine Governance + DCR Template
 - Exporting doctrine to public repositories → check Doctrine Export Policy
 - Preparing repo visibility decision → use Visibility Note Template
@@ -94,3 +96,6 @@ tools\doctrine-bootstrap.cmd C:\path\to\target-repo
 ```
 
 Use `--force` (Bash) or `-Force` (PowerShell) to overwrite existing doctrine files.
+Use `--refresh-baseline` (Bash) or `-RefreshBaseline` (PowerShell) to refresh
+only the Doctrine-owned snapshot under `docs/doctrine/`; it preserves local
+agent instructions and project context.
