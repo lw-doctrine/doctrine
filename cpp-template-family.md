@@ -1,7 +1,7 @@
 # C/C++ Template Family Doctrine
 
 Status: Draft  
-Last Reviewed: 2026-02-28
+Last Reviewed: 2026-08-29
 
 ## Purpose
 
@@ -72,4 +72,4 @@ Keep these in template-family repository docs (not doctrine policy):
 
 ## Reference Implementation
 
-- Template family repository: [tinmanworks-foundation/repo-template-cpp-family](https://github.com/tinmanworks-foundation/repo-template-cpp-family)
+- Template family repository: [lw-doctrine/repo-template-cpp-family](https://github.com/lw-doctrine/repo-template-cpp-family)

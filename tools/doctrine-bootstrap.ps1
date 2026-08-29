@@ -141,7 +141,12 @@ function Assert-PublicExportClean {
     $ForbiddenPatterns = @(
         "Primary engineering identity",
         "Real/legal identity",
-        "George Gil"
+        "George Gil",
+        "TinMan",
+        "TinManWorks",
+        "LooseWire",
+        "LooseWired",
+        "TinkerSpace"
     )
     $ScanRoots = @(
         (Join-Path $TargetPath "AGENTS.md"),

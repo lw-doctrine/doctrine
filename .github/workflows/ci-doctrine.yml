@@ -61,9 +61,31 @@ jobs:
           test ! -f "$target/CLAUDE.md"
           test ! -f "$target/docs/doctrine/identity.md"
           test ! -f "$target/docs/doctrine/usernames.md"
-          if grep -RInE 'Primary engineering identity|Real/legal identity|George Gil|TinMan|LooseWire|TinkerSpace' \
+          if grep -RIniE 'Primary engineering identity|Real/legal identity|George Gil|TinMan|TinManWorks|LooseWire|LooseWired|TinkerSpace' \
             "$target/AGENTS.md" "$target/AI_CONTEXT.md" "$target/docs/doctrine"; then
             echo "Public bootstrap export contains non-exportable identity content"
+            exit 1
+          fi
+
+      - name: Validate public Doctrine source boundary
+        run: |
+          set -euo pipefail
+          test ! -e identity.md
+          test ! -e usernames.md
+          mapfile -t source_files < <(git ls-files '*.md')
+          if grep -IniE 'Primary engineering identity|Real/legal identity|George Gil|TinMan|TinManWorks|LooseWire|LooseWired|TinkerSpace' "${source_files[@]}"; then
+            echo "Public Doctrine source contains non-exportable identity content"
+            exit 1
+          fi
+
+      - name: Validate current identity-marker guard
+        run: |
+          set -euo pipefail
+          target="$(mktemp -d)"
+          ./tools/doctrine-bootstrap.sh "$target"
+          printf 'loosewired\n' >> "$target/AGENTS.md"
+          if ./tools/doctrine-bootstrap.sh "$target"; then
+            echo "Bootstrap accepted a current maintainer identity marker"
             exit 1
           fi
 
