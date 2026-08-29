@@ -180,12 +180,17 @@ validate_public_export() {
     "Primary engineering identity"
     "Real/legal identity"
     "George Gil"
+    "TinMan"
+    "TinManWorks"
+    "LooseWire"
+    "LooseWired"
+    "TinkerSpace"
   )
 
   for pattern in "${forbidden_patterns[@]}"; do
     for path in "${scan_paths[@]}"; do
       [[ -e "$path" ]] || continue
-      matches="$(grep -RInF "$pattern" "$path" || true)"
+      matches="$(grep -RIniF "$pattern" "$path" || true)"
       if [[ -n "$matches" ]]; then
         echo "$matches" >&2
         failed=1

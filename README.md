@@ -1,11 +1,15 @@
 # Doctrine
 
 Status: Stable  
-Last Reviewed: 2026-08-20
+Last Reviewed: 2026-08-29
 
 Centralized engineering doctrine defining naming, coding philosophy, project standards, and repository governance.
 
 This repository acts as a persistent reference for engineering decisions and conventions.
+
+Doctrine is a public, contributor-neutral baseline. It is not a personal
+handbook: maintainer identity, account ladders, and tool-local preferences
+belong in private overlays.
 
 ---
 

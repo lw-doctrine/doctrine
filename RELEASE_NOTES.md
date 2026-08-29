@@ -1,9 +1,27 @@
 # Release Notes
 
 Status: Stable  
-Last Reviewed: 2026-08-20
+Last Reviewed: 2026-08-29
 
 ## Unreleased
+
+### Added Files
+- change-records/DCR-20260829-01-public-source-stabilization.md
+
+### Updated Files
+- CODEOWNERS
+- README.md
+- cpp-template-family.md
+- doctrine-governance.md
+- export-policy.md
+- tools/doctrine-bootstrap.ps1
+- tools/doctrine-bootstrap.sh
+- .github/workflows/ci-doctrine.yml
+
+### Notes
+- Made the public Doctrine source boundary enforceable, including current and retired maintainer identity markers.
+- Updated ownership and first-party template references after the GitHub account and organization migration.
+- Clarified that supporting artifacts are not normative doctrine documents for metadata purposes.
 
 ### Added Files
 - change-records/DCR-20260820-01-tool-neutral-agent-context.md
