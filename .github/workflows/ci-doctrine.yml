@@ -25,11 +25,9 @@ jobs:
             "cpp-template-family.md"
             "doctrine-governance.md"
             "export-policy.md"
-            "identity.md"
             "naming.md"
             "project-standards.md"
             "repo-management.md"
-            "usernames.md"
           )
           for f in "${files[@]}"; do
             [ -f "$f" ] || { echo "Missing required doctrine file: $f"; exit 1; }
@@ -40,7 +38,7 @@ jobs:
       - name: Validate doctrine links
         run: |
           set -euo pipefail
-          for f in README.md repo-management.md doctrine-governance.md export-policy.md project-standards.md coding.md naming.md identity.md AI_CONTEXT.md; do
+          for f in README.md repo-management.md doctrine-governance.md export-policy.md project-standards.md coding.md naming.md AI_CONTEXT.md; do
             [ -f "$f" ] || continue
             while IFS= read -r link; do
               target=$(echo "$link" | sed -E 's/^[^()]*\(([^)]+)\)$/\1/')
@@ -57,10 +55,57 @@ jobs:
           target="$(mktemp -d)"
           ./tools/doctrine-bootstrap.sh "$target"
           test -f "$target/docs/doctrine/export-policy.md"
+          test -f "$target/docs/doctrine/templates/project-context-template.md"
+          test -f "$target/docs/doctrine/templates/CLAUDE.md"
+          test ! -f "$target/PROJECT_CONTEXT.md"
+          test ! -f "$target/CLAUDE.md"
           test ! -f "$target/docs/doctrine/identity.md"
           test ! -f "$target/docs/doctrine/usernames.md"
-          if grep -RInE 'Primary engineering identity|Real/legal identity|George Gil' \
+          if grep -RIniE 'Primary engineering identity|Real/legal identity|George Gil|TinMan|TinManWorks|LooseWire|LooseWired|TinkerSpace' \
             "$target/AGENTS.md" "$target/AI_CONTEXT.md" "$target/docs/doctrine"; then
             echo "Public bootstrap export contains non-exportable identity content"
             exit 1
           fi
+
+      - name: Validate public Doctrine source boundary
+        run: |
+          set -euo pipefail
+          test ! -e identity.md
+          test ! -e usernames.md
+          mapfile -t source_files < <(git ls-files '*.md')
+          if grep -IniE 'Primary engineering identity|Real/legal identity|George Gil|TinMan|TinManWorks|LooseWire|LooseWired|TinkerSpace' "${source_files[@]}"; then
+            echo "Public Doctrine source contains non-exportable identity content"
+            exit 1
+          fi
+
+      - name: Validate current identity-marker guard
+        run: |
+          set -euo pipefail
+          target="$(mktemp -d)"
+          ./tools/doctrine-bootstrap.sh "$target"
+          printf 'loosewired\n' >> "$target/AGENTS.md"
+          if ./tools/doctrine-bootstrap.sh "$target"; then
+            echo "Bootstrap accepted a current maintainer identity marker"
+            exit 1
+          fi
+
+      - name: Validate safe baseline refresh
+        run: |
+          set -euo pipefail
+          target="$(mktemp -d)"
+          mkdir -p "$target/docs/doctrine"
+          printf 'local agents\n' > "$target/AGENTS.md"
+          printf 'local claude\n' > "$target/CLAUDE.md"
+          printf 'local AI context\n' > "$target/AI_CONTEXT.md"
+          printf 'local project context\n' > "$target/PROJECT_CONTEXT.md"
+          printf 'legacy identity\n' > "$target/docs/doctrine/identity.md"
+          printf 'legacy usernames\n' > "$target/docs/doctrine/usernames.md"
+          ./tools/doctrine-bootstrap.sh --refresh-baseline "$target"
+          test "$(cat "$target/AGENTS.md")" = 'local agents'
+          test "$(cat "$target/CLAUDE.md")" = 'local claude'
+          test "$(cat "$target/AI_CONTEXT.md")" = 'local AI context'
+          test "$(cat "$target/PROJECT_CONTEXT.md")" = 'local project context'
+          test ! -e "$target/docs/doctrine/identity.md"
+          test ! -e "$target/docs/doctrine/usernames.md"
+          test -f "$target/docs/doctrine/templates/project-context-template.md"
+          test -f "$target/docs/doctrine/templates/CLAUDE.md"

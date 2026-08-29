@@ -1,7 +1,46 @@
 # Release Notes
 
 Status: Stable  
-Last Reviewed: 2026-06-04
+Last Reviewed: 2026-08-29
+
+## v0.4.0 - 2026-08-29
+
+### Added Files
+- change-records/DCR-20260820-01-tool-neutral-agent-context.md
+- change-records/DCR-20260829-01-public-source-stabilization.md
+- templates/CLAUDE.md
+- templates/project-context-template.md
+
+### Removed Files
+- identity.md
+- usernames.md
+
+### Added Files
+- change-records/DCR-20260819-01-private-maintainer-overlay.md
+
+### Updated Files
+- .github/workflows/ci-doctrine.yml
+- AI_CONTEXT.md
+- CODEOWNERS
+- README.md
+- RELEASE_NOTES.md
+- cpp-template-family.md
+- doctrine-governance.md
+- export-policy.md
+- project-standards.md
+- templates/AGENTS.md
+- tools/README.md
+- tools/doctrine-bootstrap.ps1
+- tools/doctrine-bootstrap.sh
+- .github/workflows/ci-doctrine.yml
+
+### Notes
+- Moved maintainer identity and username preferences out of public Doctrine into a private overlay.
+- Added a tool-neutral project-context workflow with portable agent templates
+  and safe Doctrine snapshot refresh support.
+- Made the public Doctrine source boundary enforceable, including current and retired maintainer identity markers.
+- Updated ownership and first-party template references after the GitHub account and organization migration.
+- Clarified that supporting artifacts are not normative doctrine documents for metadata purposes.
 
 ## v0.3.0 - 2026-06-04
 
@@ -66,7 +105,7 @@ Last Reviewed: 2026-06-04
 - repo-management.md
 
 ### Notes
-- Added root ownership mapping with `* @tinmanworks`.
+- Added a root ownership mapping.
 - Added draft GitHub release automation for semantic tags (`v*`) with generated release notes.
 - Canonicalized branch promotion flow as `develop -> master` for releases and tagging on `master`.
 - Added enforcement check requiring PRs to `master` to originate from `develop`.
@@ -109,4 +148,4 @@ Last Reviewed: 2026-06-04
 - First formal doctrine baseline release.
 - Repository governance policy, visibility policy, org placement policy, and commit signing policy are now stable.
 - Added MIT license (`LICENSE`).
-- Identity and naming doctrines remain draft for further iteration.
+- Naming doctrine remains draft for further iteration.
