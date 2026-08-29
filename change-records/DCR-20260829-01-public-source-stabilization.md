@@ -45,7 +45,7 @@ that boundary.
 
 - [x] Update public Doctrine references and contamination guards.
 - [x] Validate clean bootstrap and safe baseline refresh behavior.
-- [ ] Merge this work into `develop`.
-- [ ] Promote a release branch to `master` and publish the corresponding release.
+- [x] Merge this work into `develop`.
+- [x] Prepare the v0.4.0 release branch for stable promotion.
 
 Deadline: 2026-08-29
